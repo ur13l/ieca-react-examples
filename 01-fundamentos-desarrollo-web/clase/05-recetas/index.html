@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Recetas con React</title>
+</head>
+
+<body>
+  <div id="root" />
+
+  <script src="https://unpkg.com/react@18/umd/react.development.js">
+  </script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js">
+  </script>
+
+  <script>
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+
+    let recipeList, form;
+    let recipes = [];
+    const recipe = {
+      name: '',
+      ingredients: [],
+      instructions: '',
+      preparationTime: 0
+    }
+
+    const clearRecipe = () => {
+      recipe.name = '';
+      recipe.ingredients = [];
+      recipe.instructions = '';
+      recipe.preparationTime = 0;
+    }
+
+    const submit = (event) => {
+      event.preventDefault();
+      recipe.name = event.target.name.value;
+      recipe.ingredients = recipe.ingredients.map((ingredient, index) => {
+        return event.target[`ingredient-${index + 1}`].value;
+      })
+      recipe.instructions = event.target.instructions.value;
+      recipe.preparationTime = event.target['preparation-time'].value;
+
+      recipes.push({ ...recipe })
+
+      renderRecipeList()
+      //clearRecipe();
+    }
+
+    const addIngredient = (event) => {
+      event.preventDefault();
+      recipe.ingredients.push("");
+      renderForm();
+    }
+
+    const renderForm = () => {
+      form = React.createElement('form', { onSubmit: submit, style: { display: "flex", maxWidth: "400px", flexDirection: "column", gap: "10px" } }, [
+        React.createElement('label', null, 'Nombre'),
+        React.createElement('input', { type: 'text', name: 'name', placeholder: 'Nombre' }),
+        React.createElement('label', null, 'Ingredientes'),
+        React.createElement('div', { type: 'text', name: 'ingredients', style: { display: "flex", flexDirection: "column" } },
+          recipe.ingredients.map(
+            (ingredient, index) => React.createElement('input', { key: index, name: `ingredient-${index + 1}`, defaultValue: ingredient })
+          )
+        ),
+        React.createElement('button', { onClick: addIngredient }, 'Agregar ingrediente'),
+        React.createElement('label', null, 'Instrucciones'),
+        React.createElement('textarea', { name: 'instructions' }),
+        React.createElement('label', null, 'Tiempo de preparación'),
+        React.createElement('input', { type: 'text', name: 'preparation-time' }),
+        React.createElement('button', { type: 'submit' }, 'Agregar')
+      ]);
+      root.render([form, recipes])
+    }
+
+    const renderRecipeList = () => {
+      recipeList = React.createElement('ul', null, recipes.map(
+        (r, index) => React.createElement('li', { key: index },
+          [
+            React.createElement('h2', null, r.name),
+            React.createElement('ul', null, r.ingredients.map(
+              (ingredient, index) => React.createElement('li', { key: index }, ingredient)
+            )),
+            React.createElement('p', null, r.instructions),
+            React.createElement('p', null, r.preparationTime)
+          ])
+      ));
+
+      root.render([form, recipeList])
+    }
+
+    renderForm();
+    renderRecipeList();
+
+  </script>
+</body>
+
+</html>

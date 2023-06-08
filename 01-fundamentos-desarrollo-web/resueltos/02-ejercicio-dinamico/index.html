@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Ejemplo de React</title>
+</head>
+
+<body>
+  <!-- Target container -->
+  <div id="root"></div>
+  <!-- React library & ReactDOM (Development Version)-->
+  <script src="https://unpkg.com/react@18/umd/react.development.js">
+  </script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js">
+  </script>
+  <script>
+
+    const submit = (e) => {
+      e.preventDefault();
+      todoArray.push(React.createElement("li", { key: e.target[0].value }, e.target[0].value));
+      const list = React.createElement("ul", null, todoArray);
+      e.target[0].value = ""
+      root.render([form, list]);
+    }
+
+    const form = React.createElement("form", { id: "todo-form", onSubmit: submit }, [
+      React.createElement("input", { type: "text", id: "todo-input", key: "input" }),
+      React.createElement("button", { type: "submit", key: "button" }, "Agregar"),
+    ])
+    const todoArray = []
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+
+    root.render(form);
+
+
+  </script>
+</body>
+
+</html>
