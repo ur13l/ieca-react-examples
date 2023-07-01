@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useCartContext } from "../provider/CartProvider";
 
 const Cart = () => {
