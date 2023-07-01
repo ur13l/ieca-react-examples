@@ -11,7 +11,8 @@ const ProductsComponent = () => {
 
   useEffect(() => {
     const asyncProducts = async () => {
-      setProducts(await getProducts());
+      const products = await getProducts();
+      setProducts(products);
     };
 
     asyncProducts();
