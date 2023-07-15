@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/cartSlice";
 
 const ProductItem = ({ product }) => {
@@ -17,7 +17,7 @@ const ProductItem = ({ product }) => {
         className="bg-black hover:bg-gray-800 text-white rounded-md p-2 mt-2"
         onClick={() => {
           dispatch(addToCart(product));
-          //dispatch({ type: "ADD_TO_CART", payload: product });
+          // dispatch({ type: "ADD_TO_CART", payload: product });
           alert("Producto añadido al carrito");
         }}
       >

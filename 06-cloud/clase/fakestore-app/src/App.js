@@ -2,9 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
-import { store } from "./redux/store";
 import { Provider } from "react-redux";
-import Login from "./pages/auth/Login";
+import { store } from "./redux/store";
 
 function App() {
   return (
@@ -15,7 +14,6 @@ function App() {
           <Routes>
             <Route path="/" exact element={<Home />} />
             <Route path="/carrito" exact element={<Cart />} />
-            <Route path="/login" exact element={<Login />} />
           </Routes>
         </main>
       </BrowserRouter>

@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { removeFromCart } from "../redux/cartSlice";
 
 const CartItem = ({ product }) => {
@@ -18,8 +18,7 @@ const CartItem = ({ product }) => {
       <button
         className="text-red-500"
         onClick={() => {
-          dispatch(removeFromCart(product));
-          // dispatch({ type: "REMOVE_FROM_CART", payload: product });
+          dispatch(removeFromCart(product.id));
         }}
       >
         Eliminar
