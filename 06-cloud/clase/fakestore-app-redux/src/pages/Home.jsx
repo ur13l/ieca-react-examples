@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import useAPI from "../hooks/useAPI";
 import ProductItem from "../components/ProductItem";
-import { collection, onSnapshot, query } from "firebase/firestore";
-import { firestore } from "../index";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -10,20 +8,12 @@ const Home = () => {
   const { getProducts } = useAPI();
 
   useEffect(() => {
-    const getData = async () => {
-      const data = await query(
-        collection(firestore, "fakestore-test-products")
-      );
-
-      onSnapshot(data, (querySnapshot) => {
-        const prd = querySnapshot.docs.map((doc) => doc.data());
-
-        setProducts(prd);
+    getProducts()
+      .then((products) => {
+        setProducts(products);
         setLoading(false);
-      });
-    };
-
-    getData();
+      })
+      .catch((err) => console.error(err));
   }, []);
 
   return (
